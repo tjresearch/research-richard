@@ -1,0 +1,12 @@
+canvas {
+	border:1px solid black;
+}
+
+h2 {
+	font-family: Helvetica;
+	color: #0000ff;
+}
+
+#frame-slider {
+	width: 50%;
+}

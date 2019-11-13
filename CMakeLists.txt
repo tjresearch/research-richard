@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+set(CMAKE_CXX_STANDARD 17)
+project(DecentralizedTrafficDetection)
+include_directories(include)
+file(GLOB SOURCES "src/*.cpp")
+add_executable(main ${SOURCES})
+target_link_libraries(main boost_system boost_filesystem)
