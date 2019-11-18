@@ -40,32 +40,33 @@ function readFile (file) {
 //     return ret;
 // }
 
+app.get('/load_frame_worker', function(req, res){
+    console.log("load_frame_worker anon()");
+
+    var text = readFile(req.query.frameFile).reduce((a, b) => a + b);
+    
+    res.send(text);
+});
+
+app.get('/load_global_worker', function(req, res){
+    console.log("load_global_worker anon()");
+
+    var text = readFile(req.query.globalFile).reduce((a, b) => a + b);
+
+    res.send(text);
+});
+
 app.get('/display', function(req, res){
     console.log("display anon()");
 
     var outputFolder = "./../output/" + req.query.simulationName + req.query.simulationIndex + "/";
     var globalFile = outputFolder + req.query.simulationName + "_global.txt";
 
-    var obj = {};
-
-    obj.meta = {
-        "outputFolder": outputFolder,
+    var obj = {
+        "simulationName": req.query.simulationName,
+        "simulationIndex": req.query.simulationIndex,
     };
 
-    console.log("globalFile: '" + globalFile + "'");
-    var globalText = readFile(globalFile).reduce((a, b) => a + b);
-    obj.global = JSON.parse(globalText);
-
-    obj.frames = [];
-    for (var i = 0; i < obj.global.NUM_TIME_STEP; i++) {
-        var frameFile = outputFolder + req.query.simulationName + "_" + i.toString().padStart(6, "0") + ".data";
-        var text = readFile(frameFile).reduce((a, b) => a + b);
-        obj.frames.push(JSON.parse(text));
-    }
-
-    obj.json_string = JSON.stringify(obj);
-    // console.log(obj.json_string)
-    // res.json(obj);
     res.render("display", obj);
 });
 

@@ -6,18 +6,56 @@
         <title>Decentralized Traffic Detection Web Interface</title>
     </head>
     <body>
-        <h2>Displaying {{global.NUM_TIME_STEP}} frames from {{meta.outputFolder}}</h2>
+        <!-- <h2>Displaying {{global.NUM_TIME_STEP}} frames from {{meta.outputFolder}}</h2> -->
+        <h2>Simulation Displayer</h2>
 
         <div class="frame">
             <h3 id="frame-display">Frame: 0<h3>
-            <input type="range" min="0" max={{global.NUM_TIME_STEP}} value="0" id="frame-slider" list="frame-slider-ticks">
+
+            <input type="range" min="0" max="1" value="0" id="frame-slider" list="frame-slider-ticks">
             <datalist id="frame-slider-ticks">
             </datalist>
+            <br>
+            <input id="frame-play" type="button" value="Off"><br>
         </div>
 
         <canvas id="roadMap" width="100" height="100"></canvas>
 
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
         <script type="text/javascript">
+            var simulationData = {
+                "meta": {},
+                "global": {},
+                "frames": [],
+                "loaded": [],
+            };
+
+            // meta data
+            simulationData.meta.simulationName = {{{json simulationName}}};
+            simulationData.meta.simulationIndex = {{{json simulationIndex}}};
+            simulationData.meta.outputFolder = "./../output/" + simulationData.meta.simulationName + simulationData.meta.simulationIndex + "/";
+            simulationData.meta.globalFile = simulationData.meta.outputFolder + simulationData.meta.simulationName + "_global.txt";
+
+            // global data
+            loadGlobalRequest()
+
+            // frames and loaded
+            for (var i = 0; i < simulationData.global.NUM_TIME_STEP; i++) {
+                simulationData.frames.push({});
+                simulationData.loaded.push(false);
+
+                // pre-loaded
+                // loadFrameRequest(index);
+            }
+
+            var frameSlider = document.getElementById("frame-slider");
+            var frameSliderList = document.getElementById("frame-slider-ticks");
+            var frameDisplay = document.getElementById("frame-display");
+            var framePlay = document.getElementById("frame-play");
+
+            // color constants
             var RED   = "#FF0000";
             var GREEN = "#00FF00";
             var BLUE  = "#0000FF";
@@ -27,9 +65,88 @@
             var vertexRadius = 10;
             var edgeWidth = 10;
 
-            function initView () {
-                view.currentFrame = frameSlider.value;
-                var frameData = obj.frames[view.currentFrame];
+            var view = {
+                "width": -1,
+                "height": -1,
+                "currentFrame": -1,
+            };
+
+            var canvas = document.getElementById('roadMap');
+            var	context = canvas.getContext('2d');
+
+            canvas.width = screen.width * 0.9;
+            canvas.height = screen.height * 0.9;
+
+            function loadFrameRequest (index) {
+                if (!simulationData.loaded[index]) {
+                    console.log("Loading frame " + index);
+                    var frameFile = simulationData.meta.outputFolder + simulationData.meta.simulationName + "_" + index.toString().padStart(6, "0") + ".data";
+                    var params = {
+                        "url": "load_frame_worker",
+                        "type": "get",
+                        "data": {"frameFile": frameFile},
+                        "success": loadFrameResponse,
+                    };
+                    $.ajax(params);
+                } else {
+                    displayFrame(index);
+                }
+            }
+
+            function loadFrameResponse (responseText) {
+                var parsed = JSON.parse(responseText);
+                simulationData.frames[parsed.frame] = parsed;
+                simulationData.loaded[parsed.frame] = true;
+                displayFrame(parsed.frame);
+            }
+
+            function loadGlobalRequest () {
+                var params = {
+                    "url": "load_global_worker",
+                    "type": "get",
+                    "data": {"globalFile": simulationData.meta.globalFile},
+                    "success": loadGlobalResponse,
+                };
+                $.ajax(params);
+            }
+
+            function loadGlobalResponse (responseText) {
+                simulationData.global = JSON.parse(responseText);
+                initFrameSlider();
+            }
+
+            function initFrameSlider() {
+                frameSlider.max = simulationData.global.NUM_TIME_STEP - 1;
+
+                var tickIntervals = 4;
+                for (var i = 0; i <= tickIntervals; i++) {
+                   var option = document.createElement("option");
+                   option.value = Math.trunc(i * frameSlider.max / tickIntervals);
+                   frameSliderList.appendChild(option);
+                }
+
+                frameSlider.oninput = function() {
+                    view.currentFrame = this.value;
+                    loadFrameRequest(this.value);
+                }
+
+                framePlay.onclick = function() {
+                    if (this.value == "On") {
+                        this.value = "Off";
+                    } else if (this.value == "Off") {
+                        this.value = "On";
+                    }
+                };
+
+                loadFrameRequest(frameSlider.value);
+            }
+
+            function displayFrame (frameNumber) {
+                console.log("Displaying frame " + frameNumber);
+
+                view.currentFrame = frameNumber;
+
+                var frameData = simulationData.frames[view.currentFrame];
                 for (var i = 0; i < frameData.graphVertices.length; i++) {
                     view.width = Math.max(view.width, frameData.graphVertices[i].x);
                     view.height = Math.max(view.height, frameData.graphVertices[i].y);
@@ -39,7 +156,15 @@
                 } else {
                     view.width = canvas.width * view.height / canvas.height;
                 }
-                console.log(view);
+
+                frameDisplay.innerHTML = "Frame: " + view.currentFrame;
+
+                context.fillStyle = GREEN;
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (var i = 0; i < frameData.graphVertices.length; i++) {
+                	drawVertex(frameData.graphVertices[i]);
+                }
             }
 
             function scaleToView (obj) {
@@ -79,73 +204,17 @@
             	context.stroke();
             }
 
-            function displayFrame (frameNumber) {
-                console.log("Displaying frame " + frameNumber);
-
-                context.fillStyle = GREEN;
-                context.fillRect(0, 0, canvas.width, canvas.height);
-
-                var frameData = obj.frames[frameNumber];
-                for (var i = 0; i < frameData.graphVertices.length; i++) {
-                	drawVertex(frameData.graphVertices[i]);
+            setInterval(function () {
+                if (framePlay.value == "On") {
+                    if (view.currentFrame + 1 == simulationData.global.NUM_TIME_STEP) {
+                        framePlay.value = "Off";
+                    } else {
+                        view.currentFrame++;
+                        frameSlider.value = view.currentFrame;
+                        loadFrameRequest(view.currentFrame);
+                    }
                 }
-            }
-
-            var canvas = document.getElementById('roadMap');
-            var	context = canvas.getContext('2d');
-
-            canvas.width = screen.width * 0.9;
-            canvas.height = screen.height * 0.9;
-
-            var view = {
-                "width": -1,
-                "height": -1,
-                "currentFrame": -1,
-            };
-
-            /*
-             * Frame slider
-             */
-            var frameSlider = document.getElementById("frame-slider");
-            var frameSliderList = document.getElementById("frame-slider-ticks");
-            var frameDisplay = document.getElementById("frame-display");
-
-            frameSlider.max -= 1;
-
-            var tickIntervals = 4;
-            for (var i = 0; i <= tickIntervals; i++) {
-               var option = document.createElement("option");
-               option.value = Math.trunc(i * frameSlider.max / tickIntervals);
-               frameSliderList.appendChild(option);
-            }
-
-            frameSlider.oninput = function() {
-                view.currentFrame = this.value;
-            	frameDisplay.innerHTML = "Frame: " + view.currentFrame;
-                // if (!obj.loaded[this.value]) {
-                //     obj.loaded[this.value] = true;
-                //     obj.frames[i] = {{{json frames.[REPLACE]}}};
-                // }
-                displayFrame(view.currentFrame);
-            }
-
-            var obj = {{{json this}}};
-            /*
-            // Dynamic loading
-            var obj = {
-                "meta": {{{json meta}}},
-                "global": {{{json global}}},
-                "frames": [],
-                "loaded": [],
-            };
-            for (var i = 0; i < obj.global.NUM_TIME_STEP; i++) {
-                obj.frames.push({});
-                obj.loaded.push(false);
-            }
-            */
-            initView();
-            displayFrame(view.currentFrame);
-
+            }, 10);
 
         </script>
         <!-- <script type="text/javascript" src="js/initDisplay.js"></script> -->
