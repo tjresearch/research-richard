@@ -8,7 +8,7 @@ void createEvents() {
 		Car& car = it->second;
 		if (!car.isDTD) continue;
 		if (car.roadIndex != -1) {
-			car.events[car.roadIndex] = Event(EVENT_COUNT++, car.currentRoad, car.currentRoad->actualSpeed, car.currentRoad->speedLimit, CURRENT_TIME);
+			car.events[car.currentRoad->id] = Event(EVENT_COUNT++, car.currentRoad, car.currentRoad->actualSpeed, car.currentRoad->speedLimit, CURRENT_TIME);
 		}
 	}
 }

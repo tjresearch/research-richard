@@ -10,13 +10,15 @@
         <h2>Simulation Displayer</h2>
 
         <div class="frame">
-            <h3 id="frame-display">Frame: 0<h3>
+            <h3 id="frame-display">Frame:<h3>
 
             <input type="range" min="0" max="1" value="0" id="frame-slider" list="frame-slider-ticks">
             <datalist id="frame-slider-ticks">
             </datalist>
             <br>
+            <h3 id="frame-speed">Frame Speed:<h3>
             <input id="frame-play" type="button" value="Off"><br>
+            <input type="range" min="0" max="7" value="4" id="frame-speed-slider">
         </div>
 
         <canvas id="roadMap" width="100" height="100"></canvas>
@@ -25,7 +27,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
         <script type="text/javascript">
-            var simulationData = {
+            var data = {
                 "meta": {},
                 "global": {},
                 "frames": [],
@@ -33,27 +35,29 @@
             };
 
             // meta data
-            simulationData.meta.simulationName = {{{json simulationName}}};
-            simulationData.meta.simulationIndex = {{{json simulationIndex}}};
-            simulationData.meta.outputFolder = "./../output/" + simulationData.meta.simulationName + simulationData.meta.simulationIndex + "/";
-            simulationData.meta.globalFile = simulationData.meta.outputFolder + simulationData.meta.simulationName + "_global.txt";
+            data.meta.simulationName = {{{json simulationName}}};
+            data.meta.simulationIndex = {{{json simulationIndex}}};
+            data.meta.outputFolder = "./../output/" + data.meta.simulationName + data.meta.simulationIndex + "/";
+            data.meta.globalFile = data.meta.outputFolder + data.meta.simulationName + "_global.txt";
 
             // global data
-            loadGlobalRequest()
+            loadGlobalRequest();
 
             // frames and loaded
-            for (var i = 0; i < simulationData.global.NUM_TIME_STEP; i++) {
-                simulationData.frames.push({});
-                simulationData.loaded.push(false);
+            for (var i = 0; i < data.global.NUM_TIME_STEP; i++) {
+                data.frames.push({});
+                data.loaded.push(false);
 
                 // pre-loaded
                 // loadFrameRequest(index);
             }
 
+            var frameDisplay = document.getElementById("frame-display");
+            var frameSpeed = document.getElementById("frame-speed");
             var frameSlider = document.getElementById("frame-slider");
             var frameSliderList = document.getElementById("frame-slider-ticks");
-            var frameDisplay = document.getElementById("frame-display");
             var framePlay = document.getElementById("frame-play");
+            var frameSpeedSlider = document.getElementById("frame-speed-slider");
 
             // color constants
             var RED   = "#FF0000";
@@ -61,9 +65,11 @@
             var BLUE  = "#0000FF";
             var GRAY  = "#808080";
             var BLACK = "#000000";
+            var WHITE = "#FFFFFF";
 
-            var vertexRadius = 10;
-            var edgeWidth = 10;
+            var vertexRadius = 15;
+            var edgeWidth = 15;
+            var carRadius = 5;
 
             var view = {
                 "width": -1,
@@ -78,9 +84,9 @@
             canvas.height = screen.height * 0.9;
 
             function loadFrameRequest (index) {
-                if (!simulationData.loaded[index]) {
+                if (!data.loaded[index]) {
                     console.log("Loading frame " + index);
-                    var frameFile = simulationData.meta.outputFolder + simulationData.meta.simulationName + "_" + index.toString().padStart(6, "0") + ".data";
+                    var frameFile = data.meta.outputFolder + data.meta.simulationName + "_" + index.toString().padStart(6, "0") + ".data";
                     var params = {
                         "url": "load_frame_worker",
                         "type": "get",
@@ -95,8 +101,8 @@
 
             function loadFrameResponse (responseText) {
                 var parsed = JSON.parse(responseText);
-                simulationData.frames[parsed.frame] = parsed;
-                simulationData.loaded[parsed.frame] = true;
+                data.frames[parsed.frame] = parsed;
+                data.loaded[parsed.frame] = true;
                 displayFrame(parsed.frame);
             }
 
@@ -104,19 +110,23 @@
                 var params = {
                     "url": "load_global_worker",
                     "type": "get",
-                    "data": {"globalFile": simulationData.meta.globalFile},
+                    "data": {"globalFile": data.meta.globalFile},
                     "success": loadGlobalResponse,
                 };
                 $.ajax(params);
             }
 
             function loadGlobalResponse (responseText) {
-                simulationData.global = JSON.parse(responseText);
+                data.global = JSON.parse(responseText);
                 initFrameSlider();
             }
 
             function initFrameSlider() {
-                frameSlider.max = simulationData.global.NUM_TIME_STEP - 1;
+                frameSlider.max = data.global.NUM_TIME_STEP - 1;
+                frameSlider.oninput = function() {
+                    view.currentFrame = this.value;
+                    loadFrameRequest(this.value);
+                }
 
                 var tickIntervals = 4;
                 for (var i = 0; i <= tickIntervals; i++) {
@@ -125,17 +135,23 @@
                    frameSliderList.appendChild(option);
                 }
 
-                frameSlider.oninput = function() {
-                    view.currentFrame = this.value;
-                    loadFrameRequest(this.value);
-                }
-
                 framePlay.onclick = function() {
                     if (this.value == "On") {
+                        frameSpeed.style.color = GRAY;
                         this.value = "Off";
                     } else if (this.value == "Off") {
+                        frameSpeed.style.color = BLACK;
+                        timeSinceUpdate = 0;
                         this.value = "On";
                     }
+                };
+
+                this.value = "Off";
+                frameSpeed.style.color = GRAY;
+                frameSpeed.innerHTML = "Frame Speed: " + frameSpeedSliderValues[frameSpeedSlider.value];
+
+                frameSpeedSlider.oninput = function() {
+                    frameSpeed.innerHTML = "Frame Speed: " + frameSpeedSliderValues[this.value];
                 };
 
                 loadFrameRequest(frameSlider.value);
@@ -146,7 +162,7 @@
 
                 view.currentFrame = frameNumber;
 
-                var frameData = simulationData.frames[view.currentFrame];
+                var frameData = data.frames[view.currentFrame];
                 for (var i = 0; i < frameData.graphVertices.length; i++) {
                     view.width = Math.max(view.width, frameData.graphVertices[i].x);
                     view.height = Math.max(view.height, frameData.graphVertices[i].y);
@@ -159,11 +175,19 @@
 
                 frameDisplay.innerHTML = "Frame: " + view.currentFrame;
 
-                context.fillStyle = GREEN;
+                context.fillStyle = WHITE;
                 context.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (var i = 0; i < frameData.graphEdges.length; i++) {
+                	drawEdge(frameData.graphEdges[i]);
+                }
 
                 for (var i = 0; i < frameData.graphVertices.length; i++) {
                 	drawVertex(frameData.graphVertices[i]);
+                }
+
+                for (var i = 0; i < frameData.graphCars.length; i++) {
+                	drawCar(frameData.graphCars[i]);
                 }
             }
 
@@ -174,20 +198,42 @@
                 }
             }
 
-            function drawEdge (e) {
-                context.fillStyle = '#f00';
-                context.beginPath();
-                for (var i = 0; i < points.size(); i++) {
+            function drawCar (car) {
+                var loc = scaleToView(car);
 
-                }
-                context.moveTo(0, 0);
-                context.lineTo(100,50);
-                context.lineTo(50, 100);
-                context.lineTo(0, 90);
+            	context.beginPath();
+            	context.arc(loc.x, loc.y, carRadius, 0, 2 * Math.PI, false);
                 context.closePath();
-            	context.fillStyle = BLUE;
+
+            	context.fillStyle = RED;
+            	context.fill();
+
+            	context.lineWidth = 1;
+            	context.strokeStyle = BLACK;
+            	context.stroke();
+            }
+
+            function drawEdge (e) {
+                var loc1 = scaleToView(data.frames[view.currentFrame].graphVertices[e.start]);
+                var loc2 = scaleToView(data.frames[view.currentFrame].graphVertices[e.end]);
+                var dx = loc2.x - loc1.x;
+                var dy = loc2.y - loc1.y;
+                var magnitude = Math.sqrt(dx * dx + dy * dy);
+                var x_offset = -dy / magnitude * edgeWidth / 2;
+                var y_offset = -dx / magnitude * edgeWidth / 2;
+
+                context.beginPath();
+                context.moveTo(loc1.x + x_offset, loc1.y + y_offset);
+                context.lineTo(loc1.x - x_offset, loc1.y - y_offset);
+                context.lineTo(loc2.x - x_offset, loc2.y - y_offset);
+                context.lineTo(loc2.x + x_offset, loc2.y + y_offset);
+                context.lineTo(loc1.x + x_offset, loc1.y + y_offset);
+                context.closePath();
+
+            	context.fillStyle = GRAY;
                 context.fill();
-            	context.lineWidth = 2;
+
+            	context.lineWidth = 1;
             	context.strokeStyle = BLACK;
             	context.stroke();
             }
@@ -199,22 +245,39 @@
                 context.closePath();
             	context.fillStyle = BLUE;
             	context.fill();
-            	context.lineWidth = 2;
+            	context.lineWidth = 1;
             	context.strokeStyle = BLACK;
             	context.stroke();
             }
 
+            var intervalTime = 10;
+            var frameSpeedSliderValues = [0.5, 1, 2, 5, 10, 25, 50, 100]; // frames per second
+            var timeSinceUpdate = 0;
             setInterval(function () {
                 if (framePlay.value == "On") {
-                    if (view.currentFrame + 1 == simulationData.global.NUM_TIME_STEP) {
+                    timeSinceUpdate += intervalTime;
+                    var frameChange = Math.trunc(timeSinceUpdate / (1000 / frameSpeedSliderValues[frameSpeedSlider.value]));
+                    if (frameChange == 0) {
+                        return;
+                    }
+                    var nextFrame = view.currentFrame + frameChange;
+                    if (nextFrame >= data.global.NUM_TIME_STEP) {
+                        if (view.currentFrame + 1 < data.global.NUM_TIME_STEP) {
+                            view.currentFrame = data.global.NUM_TIME_STEP - 1;
+                            frameSlider.value = view.currentFrame;
+                            loadFrameRequest(view.currentFrame);
+                        }
+
                         framePlay.value = "Off";
+                        frameSpeed.style.color = GRAY;
                     } else {
                         view.currentFrame++;
                         frameSlider.value = view.currentFrame;
                         loadFrameRequest(view.currentFrame);
+                        timeSinceUpdate -= frameChange * (1000 / frameSpeedSliderValues[frameSpeedSlider.value]);
                     }
                 }
-            }, 10);
+            }, intervalTime);
 
         </script>
         <!-- <script type="text/javascript" src="js/initDisplay.js"></script> -->

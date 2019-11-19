@@ -26,9 +26,9 @@ pd Car::getLocation() {
 		return mp(start->x, start->y);
 	}
 	ld distanceRatio = currentRoadDistance / currentRoad->length;
-	ld x = currentRoad->start->x * (1 - distanceRatio) + currentRoad->end->x * distanceRatio;
-	ld y = currentRoad->start->y * (1 - distanceRatio) + currentRoad->end->y * distanceRatio;
-	return mp(x, y);
+	this->x = currentRoad->start->x * (1 - distanceRatio) + currentRoad->end->x * distanceRatio;
+	this->y = currentRoad->start->y * (1 - distanceRatio) + currentRoad->end->y * distanceRatio;
+	return mp(this->x, this->y);
 }
 
 ld Car::getTimeElapsed() {
@@ -39,6 +39,8 @@ string Car::toString() {
 	string ret = "{";
 
 	ret += "\"id\": " + to_string(id) + ", " +
+			"\"x\": " + to_string(x) + ", " +
+			"\"y\": " + to_string(y) + ", " +
 			"\"start\": " + to_string(start->id) + ", " +
 			"\"end\": " + to_string(end->id) + ", " +
 			"\"isDTD\": " + to_string(isDTD) + ", " +

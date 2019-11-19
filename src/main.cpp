@@ -77,6 +77,7 @@ void step_simulation() {
 			if (timeLeft >= roadTime) {
 				car.distanceTraveled += car.currentRoad->length - car.currentRoadDistance;
 				timeLeft -= roadTime;
+
 				if (car.currentRoad->end == car.end) { // Car has reached destination
 					ld tripTime = car.getTimeElapsed() + (TIME_STEP_LENGTH - timeLeft);
 					TOTAL_TRIP_TIME += tripTime;
@@ -99,6 +100,7 @@ void step_simulation() {
 				car.currentRoadDistance += car.currentRoad->actualSpeed * timeLeft;
 				timeLeft = 0.0;
 			}
+			car.getLocation();
 		}
 		if (car.finished) {
 			continue;

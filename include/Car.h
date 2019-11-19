@@ -11,6 +11,7 @@ public:
 	Car(int, Vertex&, Vertex&, bool);
 
 	int id;
+	ld x, y;
 	Vertex* start;
 	Vertex* end;
 	bool isDTD;
