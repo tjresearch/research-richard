@@ -41,10 +41,10 @@ function readFile (file) {
 // }
 
 app.get('/load_frame_worker', function(req, res){
-    console.log("load_frame_worker anon()");
+    // console.log("load_frame_worker anon()");
 
     var text = readFile(req.query.frameFile).reduce((a, b) => a + b);
-    
+
     res.send(text);
 });
 
