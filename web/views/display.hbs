@@ -250,6 +250,47 @@
             	context.stroke();
             }
 
+            // canvas clicking
+            // based on https://lavrton.com/hit-region-detection-for-html5-canvas-and-how-to-listen-to-click-events-on-canvas-shapes-815034d7e9f8/
+
+            const hitCanvas = document.createElement('canvas');
+            const hitContext = hitCanvas.getContext('2d');
+
+            var shapes = [];
+
+            var maxColor = 0;
+            var colorsToShape = {};
+
+            function getNextColor () {
+                var r = Math.floor(maxColor / (256 * 256));
+                var g = Math.floor(maxColor / (256)) % 256;
+                var b = maxColor % (256 * 256);
+                return "${r},${g},${b}";
+            }
+
+            function addShape(shape) {
+                shape.color = getNextColor();
+                colorsToShape[shape.color] = shape.id;
+                shapes.push(shape);
+            }
+
+
+            canvas.addEventListener('click', function (event) {
+                const mousePos = {
+                    x: event.clientX - canvas.offsetLeft,
+                    y: event.clientY - canvas.offsetTop
+                };
+                const pixel = hitContext.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+                const color = "${pixel[0]},${pixel[1]},${pixel[2]}";
+                const shape = colorsHash[color];
+                if (shape) {
+                    alert("click on circle: " + shape.id);
+                }
+            });
+
+
+
+
             var intervalTime = 10;
             var frameSpeedSliderValues = [0.5, 1, 2, 5, 10, 25, 50, 100]; // frames per second
             var timeSinceUpdate = 0;
