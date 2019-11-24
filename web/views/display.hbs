@@ -21,18 +21,27 @@
             <input type="range" min="0" max="7" value="4" id="frame-speed-slider">
         </div>
 
+
         <canvas id="roadMap" width="100" height="100"></canvas>
+
+        <div id="item-description" width="90%" height="10%">
+            Click on an item to get its current state!
+        </div>
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
         <script type="text/javascript">
+            "use strict";
+
             var data = {
                 "meta": {},
                 "global": {},
                 "frames": [],
                 "loaded": [],
             };
+
+            var frameData;
 
             // meta data
             data.meta.simulationName = {{{json simulationName}}};
@@ -77,8 +86,9 @@
                 "currentFrame": -1,
             };
 
-            var canvas = document.getElementById('roadMap');
-            var	context = canvas.getContext('2d');
+            const canvas = document.getElementById('roadMap');
+            const context = canvas.getContext('2d');
+            context.imageSmoothingEnabled = false;
 
             canvas.width = screen.width * 0.9;
             canvas.height = screen.height * 0.9;
@@ -103,6 +113,7 @@
                 var parsed = JSON.parse(responseText);
                 data.frames[parsed.frame] = parsed;
                 data.loaded[parsed.frame] = true;
+                console.log(data.frames[parsed.frame]);
                 displayFrame(parsed.frame);
             }
 
@@ -146,7 +157,7 @@
                     }
                 };
 
-                this.value = "Off";
+                framePlay.value = "Off";
                 frameSpeed.style.color = GRAY;
                 frameSpeed.innerHTML = "Frame Speed: " + frameSpeedSliderValues[frameSpeedSlider.value];
 
@@ -162,7 +173,7 @@
 
                 view.currentFrame = frameNumber;
 
-                var frameData = data.frames[view.currentFrame];
+                frameData = data.frames[view.currentFrame];
                 for (var i = 0; i < frameData.graphVertices.length; i++) {
                     view.width = Math.max(view.width, frameData.graphVertices[i].x);
                     view.height = Math.max(view.height, frameData.graphVertices[i].y);
@@ -178,6 +189,12 @@
                 context.fillStyle = WHITE;
                 context.fillRect(0, 0, canvas.width, canvas.height);
 
+                hitContext.fillStyle = BLACK;
+                hitContext.fillRect(0, 0, canvas.width, canvas.height);
+
+                maxColor = 0;
+                colorToItem = {};
+
                 for (var i = 0; i < frameData.graphEdges.length; i++) {
                 	drawEdge(frameData.graphEdges[i]);
                 }
@@ -186,9 +203,10 @@
                 	drawVertex(frameData.graphVertices[i]);
                 }
 
-                for (var i = 0; i < frameData.graphCars.length; i++) {
-                	drawCar(frameData.graphCars[i]);
+                for (var id in frameData.graphCars) {
+                	drawCar(frameData.graphCars[id]);
                 }
+                // console.log(colorToItem);
             }
 
             function scaleToView (obj) {
@@ -211,6 +229,47 @@
             	context.lineWidth = 1;
             	context.strokeStyle = BLACK;
             	context.stroke();
+
+                var hitColor = getNextColor();
+                colorToItem[hitColor] = {
+                    "type": "car",
+                    "id": car.id,
+                };
+
+                hitContext.beginPath();
+                hitContext.arc(loc.x, loc.y, carRadius, 0, 2 * Math.PI, false);
+                hitContext.closePath();
+
+                hitContext.fillStyle = hitColor;
+                hitContext.fill();
+            }
+
+            function clickCar (car) {
+                var loc = scaleToView(car);
+
+            	context.beginPath();
+            	context.arc(loc.x, loc.y, carRadius, 0, 2 * Math.PI, false);
+                context.closePath();
+
+            	context.fillStyle = RED;
+            	context.fill();
+
+            	context.lineWidth = 1;
+            	context.strokeStyle = BLACK;
+            	context.stroke();
+
+                var hitColor = getNextColor();
+                colorToItem[hitColor] = {
+                    "type": "car",
+                    "id": car.id,
+                };
+
+                hitContext.beginPath();
+                hitContext.arc(loc.x, loc.y, carRadius, 0, 2 * Math.PI, false);
+                hitContext.closePath();
+
+                hitContext.fillStyle = hitColor;
+                hitContext.fill();
             }
 
             function drawEdge (e) {
@@ -240,11 +299,14 @@
 
             function drawVertex (v) {
                 var loc = scaleToView(v);
+
             	context.beginPath();
             	context.arc(loc.x, loc.y, vertexRadius, 0, 2 * Math.PI, false);
                 context.closePath();
+
             	context.fillStyle = BLUE;
             	context.fill();
+
             	context.lineWidth = 1;
             	context.strokeStyle = BLACK;
             	context.stroke();
@@ -256,16 +318,20 @@
             const hitCanvas = document.createElement('canvas');
             const hitContext = hitCanvas.getContext('2d');
 
-            var shapes = [];
+            const itemDescription = document.getElementById("item-description");
 
+            hitCanvas.width = canvas.width;
+            hitCanvas.height = canvas.height;
+
+            var colorToItem = {};
             var maxColor = 0;
-            var colorsToShape = {};
 
             function getNextColor () {
+                maxColor++;
                 var r = Math.floor(maxColor / (256 * 256));
                 var g = Math.floor(maxColor / (256)) % 256;
                 var b = maxColor % (256 * 256);
-                return "${r},${g},${b}";
+                return "rgb(" + r + "," + g + "," + b + ")";
             }
 
             function addShape(shape) {
@@ -274,17 +340,23 @@
                 shapes.push(shape);
             }
 
-
             canvas.addEventListener('click', function (event) {
+                var bound = canvas.getBoundingClientRect();
                 const mousePos = {
-                    x: event.clientX - canvas.offsetLeft,
-                    y: event.clientY - canvas.offsetTop
+                    x: event.clientX - bound.x,
+                    y: event.clientY - bound.y,
                 };
                 const pixel = hitContext.getImageData(mousePos.x, mousePos.y, 1, 1).data;
-                const color = "${pixel[0]},${pixel[1]},${pixel[2]}";
-                const shape = colorsHash[color];
-                if (shape) {
-                    alert("click on circle: " + shape.id);
+                const color = "rgb(" + pixel[0] + "," + pixel[1] + "," + pixel[2] +")";
+
+                console.log("click");
+                console.log(mousePos);
+                // console.log(color);
+
+                const item = colorToItem[color];
+                if (item) {
+                    console.log("clicked item: " + item.type + " " + item.id);
+                    itemDescription.innerHTML = "Car\n" + JSON.stringify(frameData.graphCars[item.id]);
                 }
             });
 

@@ -126,7 +126,7 @@ void writeFrameData() {
 	outfile << "\"EVENT_COUNT\": " << EVENT_COUNT << "," << endl;
 	outfile << "\"TOTAL_TRIP_TIME\": " << TOTAL_TRIP_COUNT << "," << endl;
 
-	outfile << "\"graphCars\": [" << endl;
+	outfile << "\"graphCars\": {" << endl;
 	bool first = true;
 	for (auto it : graphCars) {
 		if (first) {
@@ -134,10 +134,10 @@ void writeFrameData() {
 		} else {
 			outfile << "," << endl;
 		}
-		outfile << it.second.toString();
+		outfile << "\"" << it.second.id << "\": " << it.second.toString();
 	}
 	outfile << endl;
-	outfile << "]," << endl;
+	outfile << "}," << endl;
 
 	outfile << "\"graphEdges\": [" << endl;
 	for (int i = 0; i < graphEdges.size(); i++) {
