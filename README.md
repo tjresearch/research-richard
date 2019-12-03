@@ -13,9 +13,13 @@ For the web server, run 'npm install NAME_OF_LIBRARY' to install libraries
 
 ## Run instructions
 cd code/build
+
 cmake .. && make
+
 ./main < input.txt
+
 cd ../web
+
 node index.js
 
 Go to localhost:8080/
