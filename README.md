@@ -1,7 +1,7 @@
 # Decentralized Traffic Detection
 
 ## Project overview
-Senior Research Lab for Richard Zhan
+I will simulate a road network and test the effectiveness of decentralized traffic detection (DTD) through car-to-car communication of local slowdowns. I will also determine the minimum density of DTD users necessary for effective decentralized traffic detection.
 
 ## Requirements
 Ensure that your device has C++11 or higher.
