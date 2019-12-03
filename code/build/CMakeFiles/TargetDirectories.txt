@@ -1,0 +1,3 @@
+/mnt/c/cs/research-richard/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/cs/research-richard/build/CMakeFiles/main.dir
+/mnt/c/cs/research-richard/build/CMakeFiles/edit_cache.dir
