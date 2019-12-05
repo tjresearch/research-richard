@@ -46,7 +46,7 @@ string Car::toString() {
 			"\"isDTD\": " + to_string(isDTD) + ", " +
 			"\"startTime\": " + to_string(startTime) + ", " +
 			"\"finished\": " + to_string(finished) + ", " +
-			"\"roadIndex\": " + to_string(finished) + ", " +
+			"\"roadIndex\": " + to_string(roadIndex) + ", " +
 			"\"distanceTraveled\": " + to_string(distanceTraveled) + ", ";
 
 	string events_str = "[";

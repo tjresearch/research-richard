@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++1z
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/mnt/c/cs/research-richard/include 
+CXX_INCLUDES = -I/mnt/c/cs/research-richard/code/include 
 

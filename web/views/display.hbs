@@ -22,11 +22,18 @@
         </div>
 
 
-        <canvas id="roadMap" width="100" height="100"></canvas>
+
+        <div id="event-search" width="90%" height="10%">
+            <input id="event-search-button" type="button" value="Search for event by ID:" id="frame-speed-slider">
+			<input id="event-search-text" type="text"><br>
+            <p id="event-search-state"></p>
+            <br><br>
+        </div>
 
         <div id="item-description" width="90%" height="10%">
             Click on an item to get its current state!
         </div>
+        <canvas id="roadMap" width="100" height="100"></canvas>
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -46,8 +53,8 @@
             // meta data
             data.meta.simulationName = {{{json simulationName}}};
             data.meta.simulationIndex = {{{json simulationIndex}}};
-            data.meta.outputFolder = "./../output/" + data.meta.simulationName + data.meta.simulationIndex + "/";
-            data.meta.globalFile = data.meta.outputFolder + data.meta.simulationName + "_global.txt";
+            data.meta.outputFolder = {{{json outputFolder}}};
+            data.meta.globalFile = {{{json globalFile}}};
 
             // global data
             loadGlobalRequest();
@@ -67,6 +74,10 @@
             var frameSliderList = document.getElementById("frame-slider-ticks");
             var framePlay = document.getElementById("frame-play");
             var frameSpeedSlider = document.getElementById("frame-speed-slider");
+
+            var eventSearchButton = document.getElementById("event-search-button");
+            var eventSearchText = document.getElementById("event-search-text");
+            var eventSearchState = document.getElementById("event-search-state");
 
             // color constants
             var RED   = "#FF0000";
@@ -130,9 +141,11 @@
             function loadGlobalResponse (responseText) {
                 data.global = JSON.parse(responseText);
                 initFrameSlider();
+                initEventSearch();
+                loadFrameRequest(frameSlider.value);
             }
 
-            function initFrameSlider() {
+            function initFrameSlider () {
                 frameSlider.max = data.global.NUM_TIME_STEP - 1;
                 frameSlider.oninput = function() {
                     view.currentFrame = this.value;
@@ -165,7 +178,14 @@
                     frameSpeed.innerHTML = "Frame Speed: " + frameSpeedSliderValues[this.value];
                 };
 
-                loadFrameRequest(frameSlider.value);
+            }
+
+            function initEventSearch () {
+                eventSearchButton.onclick = function() {
+                    if (eventSearchText.value != "") {
+                        eventSearchState.innerHTML = JSON.stringify(data.frames[view.currentFrame].graphEvents[eventSearchText.value]);
+                    }
+                };
             }
 
             function displayFrame (frameNumber) {

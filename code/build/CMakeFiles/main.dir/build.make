@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c/cs/research-richard
+CMAKE_SOURCE_DIR = /mnt/c/cs/research-richard/code
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c/cs/research-richard/build
+CMAKE_BINARY_DIR = /mnt/c/cs/research-richard/code/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/main.dir/flags.make
 
 CMakeFiles/main.dir/src/Car.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Car.cpp.o: ../src/Car.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/Car.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/Car.cpp.o -c /mnt/c/cs/research-richard/src/Car.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/Car.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/Car.cpp.o -c /mnt/c/cs/research-richard/code/src/Car.cpp
 
 CMakeFiles/main.dir/src/Car.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Car.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/Car.cpp > CMakeFiles/main.dir/src/Car.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/Car.cpp > CMakeFiles/main.dir/src/Car.cpp.i
 
 CMakeFiles/main.dir/src/Car.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Car.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/Car.cpp -o CMakeFiles/main.dir/src/Car.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/Car.cpp -o CMakeFiles/main.dir/src/Car.cpp.s
 
 CMakeFiles/main.dir/src/Car.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/main.dir/src/Car.cpp.o.provides.build: CMakeFiles/main.dir/src/Car.cp
 
 CMakeFiles/main.dir/src/Edge.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Edge.cpp.o: ../src/Edge.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/Edge.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/Edge.cpp.o -c /mnt/c/cs/research-richard/src/Edge.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/src/Edge.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/Edge.cpp.o -c /mnt/c/cs/research-richard/code/src/Edge.cpp
 
 CMakeFiles/main.dir/src/Edge.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Edge.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/Edge.cpp > CMakeFiles/main.dir/src/Edge.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/Edge.cpp > CMakeFiles/main.dir/src/Edge.cpp.i
 
 CMakeFiles/main.dir/src/Edge.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Edge.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/Edge.cpp -o CMakeFiles/main.dir/src/Edge.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/Edge.cpp -o CMakeFiles/main.dir/src/Edge.cpp.s
 
 CMakeFiles/main.dir/src/Edge.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/main.dir/src/Edge.cpp.o.provides.build: CMakeFiles/main.dir/src/Edge.
 
 CMakeFiles/main.dir/src/Event.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Event.cpp.o: ../src/Event.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/Event.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/Event.cpp.o -c /mnt/c/cs/research-richard/src/Event.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/src/Event.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/Event.cpp.o -c /mnt/c/cs/research-richard/code/src/Event.cpp
 
 CMakeFiles/main.dir/src/Event.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Event.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/Event.cpp > CMakeFiles/main.dir/src/Event.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/Event.cpp > CMakeFiles/main.dir/src/Event.cpp.i
 
 CMakeFiles/main.dir/src/Event.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Event.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/Event.cpp -o CMakeFiles/main.dir/src/Event.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/Event.cpp -o CMakeFiles/main.dir/src/Event.cpp.s
 
 CMakeFiles/main.dir/src/Event.cpp.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/main.dir/src/Event.cpp.o.provides.build: CMakeFiles/main.dir/src/Even
 
 CMakeFiles/main.dir/src/Vertex.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/Vertex.cpp.o: ../src/Vertex.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/Vertex.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/Vertex.cpp.o -c /mnt/c/cs/research-richard/src/Vertex.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/src/Vertex.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/Vertex.cpp.o -c /mnt/c/cs/research-richard/code/src/Vertex.cpp
 
 CMakeFiles/main.dir/src/Vertex.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Vertex.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/Vertex.cpp > CMakeFiles/main.dir/src/Vertex.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/Vertex.cpp > CMakeFiles/main.dir/src/Vertex.cpp.i
 
 CMakeFiles/main.dir/src/Vertex.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Vertex.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/Vertex.cpp -o CMakeFiles/main.dir/src/Vertex.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/Vertex.cpp -o CMakeFiles/main.dir/src/Vertex.cpp.s
 
 CMakeFiles/main.dir/src/Vertex.cpp.o.requires:
 
@@ -155,16 +155,16 @@ CMakeFiles/main.dir/src/Vertex.cpp.o.provides.build: CMakeFiles/main.dir/src/Ver
 
 CMakeFiles/main.dir/src/communication.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/communication.cpp.o: ../src/communication.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/src/communication.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/communication.cpp.o -c /mnt/c/cs/research-richard/src/communication.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/src/communication.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/communication.cpp.o -c /mnt/c/cs/research-richard/code/src/communication.cpp
 
 CMakeFiles/main.dir/src/communication.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/communication.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/communication.cpp > CMakeFiles/main.dir/src/communication.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/communication.cpp > CMakeFiles/main.dir/src/communication.cpp.i
 
 CMakeFiles/main.dir/src/communication.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/communication.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/communication.cpp -o CMakeFiles/main.dir/src/communication.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/communication.cpp -o CMakeFiles/main.dir/src/communication.cpp.s
 
 CMakeFiles/main.dir/src/communication.cpp.o.requires:
 
@@ -179,16 +179,16 @@ CMakeFiles/main.dir/src/communication.cpp.o.provides.build: CMakeFiles/main.dir/
 
 CMakeFiles/main.dir/src/files.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/files.cpp.o: ../src/files.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/src/files.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/files.cpp.o -c /mnt/c/cs/research-richard/src/files.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/src/files.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/files.cpp.o -c /mnt/c/cs/research-richard/code/src/files.cpp
 
 CMakeFiles/main.dir/src/files.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/files.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/files.cpp > CMakeFiles/main.dir/src/files.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/files.cpp > CMakeFiles/main.dir/src/files.cpp.i
 
 CMakeFiles/main.dir/src/files.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/files.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/files.cpp -o CMakeFiles/main.dir/src/files.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/files.cpp -o CMakeFiles/main.dir/src/files.cpp.s
 
 CMakeFiles/main.dir/src/files.cpp.o.requires:
 
@@ -203,16 +203,16 @@ CMakeFiles/main.dir/src/files.cpp.o.provides.build: CMakeFiles/main.dir/src/file
 
 CMakeFiles/main.dir/src/global.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/global.cpp.o: ../src/global.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main.dir/src/global.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/global.cpp.o -c /mnt/c/cs/research-richard/src/global.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main.dir/src/global.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/global.cpp.o -c /mnt/c/cs/research-richard/code/src/global.cpp
 
 CMakeFiles/main.dir/src/global.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/global.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/global.cpp > CMakeFiles/main.dir/src/global.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/global.cpp > CMakeFiles/main.dir/src/global.cpp.i
 
 CMakeFiles/main.dir/src/global.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/global.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/global.cpp -o CMakeFiles/main.dir/src/global.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/global.cpp -o CMakeFiles/main.dir/src/global.cpp.s
 
 CMakeFiles/main.dir/src/global.cpp.o.requires:
 
@@ -227,16 +227,16 @@ CMakeFiles/main.dir/src/global.cpp.o.provides.build: CMakeFiles/main.dir/src/glo
 
 CMakeFiles/main.dir/src/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main.dir/src/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/main.cpp.o -c /mnt/c/cs/research-richard/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main.dir/src/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/main.cpp.o -c /mnt/c/cs/research-richard/code/src/main.cpp
 
 CMakeFiles/main.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/main.cpp > CMakeFiles/main.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/main.cpp > CMakeFiles/main.dir/src/main.cpp.i
 
 CMakeFiles/main.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/main.cpp -o CMakeFiles/main.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/main.cpp -o CMakeFiles/main.dir/src/main.cpp.s
 
 CMakeFiles/main.dir/src/main.cpp.o.requires:
 
@@ -251,16 +251,16 @@ CMakeFiles/main.dir/src/main.cpp.o.provides.build: CMakeFiles/main.dir/src/main.
 
 CMakeFiles/main.dir/src/navigation.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/navigation.cpp.o: ../src/navigation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/main.dir/src/navigation.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/navigation.cpp.o -c /mnt/c/cs/research-richard/src/navigation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/main.dir/src/navigation.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/navigation.cpp.o -c /mnt/c/cs/research-richard/code/src/navigation.cpp
 
 CMakeFiles/main.dir/src/navigation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/navigation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/navigation.cpp > CMakeFiles/main.dir/src/navigation.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/navigation.cpp > CMakeFiles/main.dir/src/navigation.cpp.i
 
 CMakeFiles/main.dir/src/navigation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/navigation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/navigation.cpp -o CMakeFiles/main.dir/src/navigation.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/navigation.cpp -o CMakeFiles/main.dir/src/navigation.cpp.s
 
 CMakeFiles/main.dir/src/navigation.cpp.o.requires:
 
@@ -275,16 +275,16 @@ CMakeFiles/main.dir/src/navigation.cpp.o.provides.build: CMakeFiles/main.dir/src
 
 CMakeFiles/main.dir/src/utils.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/utils.cpp.o: ../src/utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/main.dir/src/utils.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/utils.cpp.o -c /mnt/c/cs/research-richard/src/utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/main.dir/src/utils.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/main.dir/src/utils.cpp.o -c /mnt/c/cs/research-richard/code/src/utils.cpp
 
 CMakeFiles/main.dir/src/utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/src/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/src/utils.cpp > CMakeFiles/main.dir/src/utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/cs/research-richard/code/src/utils.cpp > CMakeFiles/main.dir/src/utils.cpp.i
 
 CMakeFiles/main.dir/src/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/src/utils.cpp -o CMakeFiles/main.dir/src/utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/cs/research-richard/code/src/utils.cpp -o CMakeFiles/main.dir/src/utils.cpp.s
 
 CMakeFiles/main.dir/src/utils.cpp.o.requires:
 
@@ -325,7 +325,7 @@ main: CMakeFiles/main.dir/src/navigation.cpp.o
 main: CMakeFiles/main.dir/src/utils.cpp.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/cs/research-richard/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/cs/research-richard/code/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -351,6 +351,6 @@ CMakeFiles/main.dir/clean:
 .PHONY : CMakeFiles/main.dir/clean
 
 CMakeFiles/main.dir/depend:
-	cd /mnt/c/cs/research-richard/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c/cs/research-richard /mnt/c/cs/research-richard /mnt/c/cs/research-richard/build /mnt/c/cs/research-richard/build /mnt/c/cs/research-richard/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /mnt/c/cs/research-richard/code/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c/cs/research-richard/code /mnt/c/cs/research-richard/code /mnt/c/cs/research-richard/code/build /mnt/c/cs/research-richard/code/build /mnt/c/cs/research-richard/code/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/main.dir/depend
 

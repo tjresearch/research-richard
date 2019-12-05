@@ -59,12 +59,14 @@ app.get('/load_global_worker', function(req, res){
 app.get('/display', function(req, res){
     console.log("display anon()");
 
-    var outputFolder = "./../output/" + req.query.simulationName + req.query.simulationIndex + "/";
+    var outputFolder = "./../code/output/" + req.query.simulationName + req.query.simulationIndex + "/";
     var globalFile = outputFolder + req.query.simulationName + "_global.txt";
 
     var obj = {
         "simulationName": req.query.simulationName,
         "simulationIndex": req.query.simulationIndex,
+        "outputFolder": outputFolder,
+        "globalFile": globalFile,
     };
 
     res.render("display", obj);

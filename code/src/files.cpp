@@ -159,7 +159,7 @@ void writeFrameData() {
 	outfile << endl;
 	outfile << "]," << endl;
 
-	outfile << "\"graphEvents\": [" << endl;
+	outfile << "\"graphEvents\": {" << endl;
 	first = true;
 	for (auto it : graphEvents) {
 		if (first) {
@@ -167,10 +167,10 @@ void writeFrameData() {
 		} else {
 			outfile << "," << endl;
 		}
-		outfile << it.second.toString();
+		outfile << "\"" << it.second.id << "\": " << it.second.toString();
 	}
 	outfile << endl;
-	outfile << "]" << endl;
+	outfile << "}" << endl;
 
 	outfile << "}" << endl;
 
