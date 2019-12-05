@@ -18,7 +18,7 @@ cmake .. && make
 
 ./main < input.txt
 
-cd ../web
+cd ../../web
 
 node index.js
 

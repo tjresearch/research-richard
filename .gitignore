@@ -5,3 +5,4 @@ build/cmake_install.cmake
 build/cmake
 build/main
 output
+*/node_modules
