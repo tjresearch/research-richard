@@ -6,7 +6,7 @@
   * Checks if cars have arrived at destination
   */
 void step_simulation() {
-	// cout << "STEP " << CURRENT_TIME << endl;
+	cout << "STEP " << CURRENT_TIME << endl;
 	// cout << "CURRENT_CAR_COUNT " << CURRENT_CAR_COUNT << endl;
 	// cout << "TOTAL_CAR_COUNT " << TOTAL_CAR_COUNT << endl;
 
@@ -50,7 +50,6 @@ void step_simulation() {
 			graphEdges[car.currentRoad->id].numCarsPresent++;
 		}
 	}
-
 	// Reset graphEdges car count
 	for (int i = 0; i < graphEdges.size(); i++) {
 		graphEdges[i].numCarsPresent = 0;
