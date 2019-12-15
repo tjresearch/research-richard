@@ -55,6 +55,7 @@
             data.meta.simulationIndex = {{{json simulationIndex}}};
             data.meta.outputFolder = {{{json outputFolder}}};
             data.meta.globalFile = {{{json globalFile}}};
+            data.meta.eventFile = {{{json eventFile}}};
 
             // global data
             loadGlobalRequest();
@@ -104,14 +105,48 @@
             canvas.width = screen.width * 0.9;
             canvas.height = screen.height * 0.9;
 
+            // START OF FILE LOADING AJAX
+            function loadGlobalRequest () {
+                var params = {
+                    "url": "load_file_worker",
+                    "type": "get",
+                    "data": {"fileName": data.meta.globalFile},
+                    "success": loadGlobalResponse,
+                };
+                $.ajax(params);
+            }
+
+            function loadGlobalResponse (responseText) {
+                data.global = JSON.parse(responseText);
+                loadEventRequest();
+            }
+
+            function loadEventRequest () {
+                var params = {
+                    "url": "load_file_worker",
+                    "type": "get",
+                    "data": {"fileName": data.meta.eventFile},
+                    "success": loadEventResponse,
+                };
+                $.ajax(params);
+            }
+
+            function loadEventResponse (responseText) {
+                console.log(responseText.substring(0, 100));
+                data.graphEvents = JSON.parse(responseText);
+                initFrameSlider();
+                initEventSearch();
+                loadFrameRequest(frameSlider.value);
+            }
+
             function loadFrameRequest (index) {
                 if (!data.loaded[index]) {
                     console.log("Loading frame " + index);
-                    var frameFile = data.meta.outputFolder + data.meta.simulationName + "_" + index.toString().padStart(6, "0") + ".data";
+                    var frameFile = data.meta.outputFolder + data.meta.simulationName + "_" + index.toString().padStart(6, "0") + ".txt";
                     var params = {
-                        "url": "load_frame_worker",
+                        "url": "load_file_worker",
                         "type": "get",
-                        "data": {"frameFile": frameFile},
+                        "data": {"fileName": frameFile},
                         "success": loadFrameResponse,
                     };
                     $.ajax(params);
@@ -128,22 +163,7 @@
                 displayFrame(parsed.frame);
             }
 
-            function loadGlobalRequest () {
-                var params = {
-                    "url": "load_global_worker",
-                    "type": "get",
-                    "data": {"globalFile": data.meta.globalFile},
-                    "success": loadGlobalResponse,
-                };
-                $.ajax(params);
-            }
-
-            function loadGlobalResponse (responseText) {
-                data.global = JSON.parse(responseText);
-                initFrameSlider();
-                initEventSearch();
-                loadFrameRequest(frameSlider.value);
-            }
+            // END OF FILE LOADING AJAX
 
             function initFrameSlider () {
                 frameSlider.max = data.global.NUM_TIME_STEP - 1;
@@ -183,7 +203,7 @@
             function initEventSearch () {
                 eventSearchButton.onclick = function() {
                     if (eventSearchText.value != "") {
-                        eventSearchState.innerHTML = JSON.stringify(data.frames[view.currentFrame].graphEvents[eventSearchText.value]);
+                        eventSearchState.innerHTML = JSON.stringify(data.graphEvents[eventSearchText.value]);
                     }
                 };
             }
