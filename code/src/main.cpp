@@ -21,7 +21,7 @@ void step_simulation() {
 	// Create and transfer Events between DTD cars based on the previous step's speeds
 	createEvents();
 	transferEvents();
-	cleanEvents();
+	// cleanEvents();
 
 	//testing
 	int dtd_count = 0;
@@ -172,6 +172,8 @@ int main(void) {
 		step_simulation();
 		writeFrameData();
 	}
+
+	writeEventData();
 
 	printStats();
 

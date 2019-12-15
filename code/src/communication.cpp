@@ -25,7 +25,11 @@ void exchangeEvents(Car& c1, Car& c2) {
 		} else if (c2.events[i]->id == -1) {
 			c2.events[i] = c1.events[i];
 		} else {
-			c1.events[i] = c2.events[i] = (c1.events[i]->startTime < c2.events[i]->startTime) ? c1.events[i] : c2.events[i];
+			if (c1.events[i]->startTime < c2.events[i]->startTime) {
+				c1.events[i] = c2.events[i];
+			} else {
+				c2.events[i] = c1.events[i];
+			}
 		}
 	}
 }
@@ -54,6 +58,8 @@ void transferEvents() {
   * Removes all expired events from 'graphEvents'
   */
 void cleanEvents() {
+	cout << "USING THIS WILL CAUSE eventOutput() from 'files.cpp' TO NOT WORK PROPERLY" << endl;
+	return;
 	vector<int> toErase;
 
 	for (auto it = graphEvents.begin(); it != graphEvents.end(); it++) {
