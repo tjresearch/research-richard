@@ -43,7 +43,7 @@ vector<Edge*> astar(Vertex& start, Vertex& end, vector<Event*>& events) {
 		if (cost.find(v1.id) != cost.end()) {
 			cur1 = cost[v1.id];
 		}
-		if (cost.find(v2.id) == cost.end()) {
+		if (cost.find(v2.id) != cost.end()) {
 			cur2 = cost[v2.id];
 		}
 		ld d1 = cur1 + distance(end, v1) / MAX_SPEED;
@@ -102,7 +102,7 @@ vector<Edge*> astar_old(Vertex& start, Vertex& end) {
 		if (cost.find(v1.id) != cost.end()) {
 			cur1 = cost[v1.id];
 		}
-		if (cost.find(v2.id) == cost.end()) {
+		if (cost.find(v2.id) != cost.end()) {
 			cur2 = cost[v2.id];
 		}
 		ld d1 = cur1 + distance(end, v1) / MAX_SPEED;
