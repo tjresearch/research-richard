@@ -1,8 +1,8 @@
-build/CMakeCache.txt
-build/CMakeFiles
-build/Makefile
-build/cmake_install.cmake
-build/cmake
-build/main
+code/build/CMakeCache.txt
+code/build/CMakeFiles
+code/build/Makefile
+code/build/cmake_install.cmake
+code/build/cmake
+code/build/main
 output
 */node_modules
