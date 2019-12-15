@@ -113,7 +113,7 @@ void initOutput() {
 void writeFrameData() {
 	// cout << "Writing frame to folder '" << OUTPUT_FOLDER_NAME << "'" << endl;
 
-	string current_file = OUTPUT_FILE_NAME + padZeros(CURRENT_TIME_STEP, 6) + ".data";
+	string current_file = OUTPUT_FILE_NAME + padZeros(CURRENT_TIME_STEP, 6) + ".txt";
 	ofstream outfile;
 	outfile.open(current_file);
 
@@ -157,10 +157,31 @@ void writeFrameData() {
 		outfile << graphVertices[i].toString();
 	}
 	outfile << endl;
-	outfile << "]," << endl;
+	outfile << "]" << endl;
+
+	outfile << "}" << endl;
+
+
+	outfile.close();
+
+	// cout << "Finished writing frame " << CURRENT_TIME_STEP << " to '" << current_file << "'" << endl;
+}
+
+
+/*
+ * Writes event data to folder
+ */
+void writeEventData() {
+	cout << endl << "Writing events to folder '" << OUTPUT_FOLDER_NAME << "'" << endl;
+
+	string current_file = OUTPUT_FILE_NAME + "event.txt";
+	ofstream outfile;
+	outfile.open(current_file);
+
+	outfile << "{" << endl;
 
 	outfile << "\"graphEvents\": {" << endl;
-	first = true;
+	bool first = true;
 	for (auto it : graphEvents) {
 		if (first) {
 			first = false;

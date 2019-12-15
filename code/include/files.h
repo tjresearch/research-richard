@@ -5,5 +5,6 @@ void readNetworkFile(string);
 
 void initOutput();
 void writeFrameData();
+void writeEventData();
 
 #endif
