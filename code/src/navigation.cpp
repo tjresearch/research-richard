@@ -72,7 +72,7 @@ vector<Edge*> astar(Vertex& start, Vertex& end, vector<Event*>& events) {
 			if (events[e->id]->id == -1 || events[e->id]->actualSpeed == events[e->id]->speedLimit) {
 				cur_cost = cost[state.id] + e->length / e->speedLimit;
 			} else {
-				cout << "actualSpeed vs speedLimit " << events[e->id]->actualSpeed << " " << e->speedLimit << endl;
+				// cout << "actualSpeed vs speedLimit " << events[e->id]->actualSpeed << " " << e->speedLimit << endl;
 				cur_cost = cost[state.id] + e->length / events[e->id]->actualSpeed;
 			}
 			if (cost.find(e->end->id) == cost.end() || cur_cost < cost[e->end->id]) {

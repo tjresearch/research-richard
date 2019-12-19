@@ -31,15 +31,6 @@ function readFile (file) {
     return fs.readFileSync(file).toString().split("\n");
 }
 
-//
-// function padZeros (num, length) {
-//     var ret = string(num);
-//     while (ret.length < length) {
-//         ret = "0" + ret;
-//     }
-//     return ret;
-// }
-
 app.get('/load_file_worker', function(req, res){
     // console.log("load_file_worker anon()");
     // console.log(req.query.fileName);

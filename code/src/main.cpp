@@ -22,23 +22,7 @@ void step_simulation() {
 	createEvents();
 	transferEvents();
 	// cleanEvents();
-
-	//testing
-	int dtd_count = 0;
-	for (auto it = graphCars.begin(); it != graphCars.end(); it++) {
-		if (it->second.isDTD) dtd_count++;
-	}
-
-	// 	Car& car = it->second;
-	// 	int count = 0;
-	// 	for (int i = 0; i < EDGE_COUNT; i++) {
-	// 		if (car.events[i].id != -1 && !car.events[i].hasExpired()) {
-	// 			count++;
-	// 		}
-	// 	}
-	// 	cout << "yoi: " << CURRENT_TIME << " " << count << endl;
-	// 	break;
-	// }
+	cout << "events" << graphEvents.size() << endl;
 
 	// Run A* for newly spawned cars and increment number of Cars on each Edge accordingly
 	for (auto it = graphCars.begin(); it != graphCars.end(); it++) {

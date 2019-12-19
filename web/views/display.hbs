@@ -133,7 +133,7 @@
 
             function loadEventResponse (responseText) {
                 console.log(responseText.substring(0, 100));
-                data.graphEvents = JSON.parse(responseText);
+                data.graphEvents = JSON.parse(responseText)["graphEvents"];
                 initFrameSlider();
                 initEventSearch();
                 loadFrameRequest(frameSlider.value);
