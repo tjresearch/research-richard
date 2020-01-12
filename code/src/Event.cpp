@@ -11,7 +11,7 @@ Event::Event(int i, Edge* r, ld as, ld sl, ld time) {
 }
 
 bool Event::hasExpired() {
-	return CURRENT_TIME > (startTime + lifetime);
+	return id == -1 || CURRENT_TIME > (startTime + lifetime);
 }
 
 string Event::toString() {

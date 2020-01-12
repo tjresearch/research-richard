@@ -13,6 +13,7 @@ Car::Car(int i, Vertex& st, Vertex& en, bool dtd) {
 
 	distanceTraveled = 0.0;
 	events = vector<Event*>(EDGE_COUNT, &graphEvents[-1]);
+	oldEvents = vector<Event*>(EDGE_COUNT, &graphEvents[-1]);
 }
 
 Edge* Car::getNextRoad() {

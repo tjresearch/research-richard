@@ -20,15 +20,15 @@ void createEvents() {
   */
 void exchangeEvents(Car& c1, Car& c2) {
 	for (int i = 0; i < EDGE_COUNT; i++) {
-		if (c1.events[i]->id == -1) {
-			c1.events[i] = c2.events[i];
-		} else if (c2.events[i]->id == -1) {
-			c2.events[i] = c1.events[i];
+		if (c1.oldEvents[i]->id == -1) {
+			c1.events[i] = c2.oldEvents[i];
+		} else if (c2.oldEvents[i]->id == -1) {
+			c2.events[i] = c1.oldEvents[i];
 		} else {
-			if (c1.events[i]->startTime < c2.events[i]->startTime) {
-				c1.events[i] = c2.events[i];
+			if (c1.oldEvents[i]->startTime < c2.oldEvents[i]->startTime) {
+				c1.events[i] = c2.oldEvents[i];
 			} else {
-				c2.events[i] = c1.events[i];
+				c2.events[i] = c1.oldEvents[i];;
 			}
 		}
 	}
@@ -38,6 +38,17 @@ void exchangeEvents(Car& c1, Car& c2) {
   * For each pair of Cars within 'COMMUNICATION_RANGE', exchange all Events
   */
 void transferEvents() {
+	for (auto it = graphCars.begin(); it != graphCars.end(); it++) {
+		Car& car = it->second;
+		for (int i = 0; i < EDGE_COUNT; i++) {
+			if (car.events[i]->hasExpired()) {
+				car.events[i] = car.oldEvents[i] = &graphEvents[-1];
+			}
+			else {
+				car.oldEvents[i] = car.events[i];
+			}
+		}
+	}
 	for (auto it1 = graphCars.begin(); it1 != graphCars.end(); it1++) {
 		Car& c1 = it1->second;
 		if (!c1.isDTD) continue;

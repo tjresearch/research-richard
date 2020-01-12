@@ -28,6 +28,7 @@ public:
 	ld distanceTraveled;
 
 	vector<Event*> events;
+	vector<Event*> oldEvents;
 
 	ld startTime;
 	ld getTimeElapsed();

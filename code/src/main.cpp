@@ -22,7 +22,6 @@ void step_simulation() {
 	createEvents();
 	transferEvents();
 	// cleanEvents();
-	cout << "events" << graphEvents.size() << endl;
 
 	// Run A* for newly spawned cars and increment number of Cars on each Edge accordingly
 	for (auto it = graphCars.begin(); it != graphCars.end(); it++) {
