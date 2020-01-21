@@ -27,6 +27,8 @@ public:
 
 	ld distanceTraveled;
 
+	bool eventSent;
+	Event* recentEvent;
 	vector<Event*> events;
 	vector<Event*> oldEvents;
 

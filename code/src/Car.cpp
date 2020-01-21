@@ -12,6 +12,8 @@ Car::Car(int i, Vertex& st, Vertex& en, bool dtd) {
 	roadIndex = -1;
 
 	distanceTraveled = 0.0;
+
+	eventSent = true;
 	events = vector<Event*>(EDGE_COUNT, &graphEvents[-1]);
 	oldEvents = vector<Event*>(EDGE_COUNT, &graphEvents[-1]);
 }
