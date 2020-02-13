@@ -6,3 +6,4 @@ code/build/cmake
 code/build/main
 output
 */node_modules
+web/package-lock.json
