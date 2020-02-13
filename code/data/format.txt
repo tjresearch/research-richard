@@ -1,0 +1,13 @@
+{SIMULATION NAME}
+
+{NV = NUM VERTICES} {NE = NUM EDGES} {NSE = NUM SINK VERTEX}
+{DTD SPAWN RATE}
+
+# 'NV' lines of vertex information
+{X COORDINATE} {Y COORDINATE} {CAR SPAWN RATE}
+
+# 'NE' lines of edge information
+{START VERTEX INDEX} {END VERTEX INDEX} {SPEED LIMIT}
+
+# 'NSE' numbers of sink vertex information
+{SINK VERTEX INDEX}

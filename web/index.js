@@ -57,6 +57,74 @@ app.get('/display', function(req, res){
     res.render("display", obj);
 });
 
+function cleanSplitWhitespace (array) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] == "\r" || array[i] == "\n" || array[i] == "" || array[i] == " ") {
+            array.splice(i, 1);
+            i--;
+        }
+    }
+}
+
+app.get('/load_map_worker', function(req, res){
+    // console.log("load_map_worker anon()");
+    // console.log(req.query.fileName);
+    var text = readFile(req.query.mapFileName);
+    cleanSplitWhitespace(text);
+    console.log(text);
+
+    var obj = {
+        width: -1,
+        height: -1,
+        graphVertices: [],
+        graphEdges: [],
+    };
+    
+    var line1 = text[1].split(" ");
+    var numVertices = parseInt(line1[0]);
+    var numEdges = parseInt(line1[1]);
+
+    var lineOffset = 3;
+
+    for (var i = lineOffset; i < lineOffset + numVertices; i++) {
+        var vertexLine = text[i].split(" ");
+        cleanSplitWhitespace(vertexLine);
+        var x = parseInt(vertexLine[0]);
+        var y = parseInt(vertexLine[1]);
+        obj.width = Math.max(obj.width, x);
+        obj.height = Math.max(obj.height, y);
+        obj.graphVertices.push({
+            "x": x,
+            "y": y,
+        });
+    }
+
+    for (var i = lineOffset + numVertices; i < lineOffset + numVertices + numEdges; i++) {
+        var edgeLine = text[i].split(" ");
+        cleanSplitWhitespace(edgeLine);
+        obj.graphEdges.push({
+            "start": parseInt(edgeLine[0]),
+            "end": parseInt(edgeLine[1]),
+        });
+    }
+    console.log(obj);
+
+    res.send(JSON.stringify(obj));
+});
+
+
+app.get('/preview', function(req, res){
+    console.log("preview anon()");
+
+    var mapFileName = "./../code/data/" + req.query.mapFileName + ".in";
+
+    var obj = {
+        "mapFileName": mapFileName,
+    };
+
+    res.render("preview", obj);
+});
+
 app.get('/', function(req, res){
     console.log("home page anon()");
     var obj = {};

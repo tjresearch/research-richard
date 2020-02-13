@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <meta charset="utf-8">
+        <title>Decentralized Traffic Detection Map Preview</title>
+    </head>
+    <body>
+        <h2>Preview Map</h2>
+        <canvas id="roadMap" width="100" height="100"></canvas>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            "use strict";
+
+			var mapFileName = {{{json mapFileName}}};
+
+            var mapData;
+
+            // map data
+            loadMapPreviewRequest();
+
+            // color constants
+            var RED   = "#FF0000";
+            var GREEN = "#00FF00";
+            var BLUE  = "#0000FF";
+            var GRAY  = "#808080";
+            var BLACK = "#000000";
+            var WHITE = "#FFFFFF";
+
+            var vertexRadius = 15;
+            var edgeWidth = 15;
+            var carRadius = 5;
+
+            var view = {
+                "width": -1,
+                "height": -1,
+            };
+
+            const canvas = document.getElementById('roadMap');
+            const context = canvas.getContext('2d');
+            context.imageSmoothingEnabled = false;
+
+            canvas.width = screen.width * 0.9;
+            canvas.height = screen.height * 0.9;
+
+            // START OF FILE LOADING AJAX
+            function loadMapPreviewRequest () {
+                var params = {
+                    "url": "load_map_worker",
+                    "type": "get",
+                    "data": {"mapFileName": mapFileName},
+                    "success": loadMapPreviewResponse,
+                };
+                $.ajax(params);
+            }
+
+            function loadMapPreviewResponse (responseText) {
+				// set view.width, view.height
+				// parse map data
+                mapData = JSON.parse(responseText);
+				console.log(mapData);
+				view.width = mapData.width;
+				view.height = mapData.height;
+
+				displayMap();
+            }
+
+            // END OF FILE LOADING AJAX
+
+            function displayMap () {
+                console.log("Displaying map");
+
+                for (var i = 0; i < mapData.graphVertices.length; i++) {
+                    view.width = Math.max(view.width, mapData.graphVertices[i].x);
+                    view.height = Math.max(view.height, mapData.graphVertices[i].y);
+                }
+                if (view.width / canvas.width > view.height / canvas.height) {
+                    view.height = canvas.height * view.width / canvas.width;
+                } else {
+                    view.width = canvas.width * view.height / canvas.height;
+                }
+
+                context.fillStyle = WHITE;
+                context.fillRect(0, 0, canvas.width, canvas.height);
+
+                for (var i = 0; i < mapData.graphEdges.length; i++) {
+                	drawEdge(mapData.graphEdges[i]);
+                }
+
+                for (var i = 0; i < mapData.graphVertices.length; i++) {
+                	drawVertex(mapData.graphVertices[i]);
+                }
+            }
+
+            function scaleToView (obj) {
+                return {
+                    "x": obj.x * (canvas.width / view.width),
+                    "y": obj.y * (canvas.height / view.height),
+                }
+            }
+
+            function drawEdge (e) {
+                var loc1 = scaleToView(mapData.graphVertices[e.start]);
+                var loc2 = scaleToView(mapData.graphVertices[e.end]);
+                var dx = loc2.x - loc1.x;
+                var dy = loc2.y - loc1.y;
+                var magnitude = Math.sqrt(dx * dx + dy * dy);
+                var x_offset = -dy / magnitude * edgeWidth / 2;
+                var y_offset = -dx / magnitude * edgeWidth / 2;
+
+                context.beginPath();
+                context.moveTo(loc1.x + x_offset, loc1.y + y_offset);
+                context.lineTo(loc1.x - x_offset, loc1.y - y_offset);
+                context.lineTo(loc2.x - x_offset, loc2.y - y_offset);
+                context.lineTo(loc2.x + x_offset, loc2.y + y_offset);
+                context.lineTo(loc1.x + x_offset, loc1.y + y_offset);
+                context.closePath();
+
+            	context.fillStyle = GRAY;
+                context.fill();
+
+            	context.lineWidth = 1;
+            	context.strokeStyle = BLACK;
+            	context.stroke();
+            }
+
+            function drawVertex (v) {
+                var loc = scaleToView(v);
+
+            	context.beginPath();
+            	context.arc(loc.x, loc.y, vertexRadius, 0, 2 * Math.PI, false);
+                context.closePath();
+
+            	context.fillStyle = BLUE;
+            	context.fill();
+
+            	context.lineWidth = 1;
+            	context.strokeStyle = BLACK;
+            	context.stroke();
+            }
+
+        </script>
+        <!-- <script type="text/javascript" src="js/initDisplay.js"></script> -->
+
+    </body>
+</html>
