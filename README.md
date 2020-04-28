@@ -8,19 +8,18 @@ Ensure that your device has C++11 or higher.
 The web server also requires Node.js
 
 ## Installation instructions
-Pull or download this repository from GitHub
-For the web server, run 'npm install NAME_OF_LIBRARY' to install libraries
+Clone this repository from GitHub
+```
+cd web
+npm install
+```
 
 ## Run instructions
+```
 cd code/build
-
 cmake .. && make
-
 ./main < input.txt
-
 cd ../../web
-
-node index.js
-
-Go to localhost:8080/
-
+npm start
+```
+Navigate in your favorite web browser to `localhost:8080/`

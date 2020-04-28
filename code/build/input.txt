@@ -1,1 +1,1 @@
-../data/basic.in
+../data/large_city.in
