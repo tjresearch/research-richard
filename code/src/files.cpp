@@ -64,7 +64,7 @@ void initOutput() {
 	OUTPUT_FOLDER_NAME = "../output/" + OUTPUT_BASE_NAME;
 	int count = 0;
 	string test = OUTPUT_FOLDER_NAME + padZeros(count, 4);
-	while (!boost::filesystem::create_directories(test)) {
+	while (!experimental::filesystem::create_directories(test)) {
 		test = OUTPUT_FOLDER_NAME + padZeros(++count, 4);
 	}
 	OUTPUT_FOLDER_NAME += padZeros(count, 4);
