@@ -6,6 +6,8 @@ I will simulate a road network and test the effectiveness of decentralized traff
 ## Requirements
 The simulation program requires C++11 or higher.
 
+It also requires Boost. https://www.boost.org/users/download/#live
+
 The web server requires Node.js.
 https://nodejs.org/en/
 
