@@ -27,6 +27,4 @@ cd ../../web
 npm start
 ```
 3. Navigate in your favorite web browser to `localhost:8080/`
-4. Enter the simulation name and index from `./main < input.txt` into the website (`basic` and `0000` in the example)
-![Example Simulation Output](resources/example_output.png)
-5.
+4. Enter the simulation name and index from `./main < input.txt` into the website
